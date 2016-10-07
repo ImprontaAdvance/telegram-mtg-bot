@@ -16,3 +16,9 @@ services:
         ports:
             - 3001:3001
         command: nodejs app.js
+        
+    mkmbot:
+        build: MKMBot
+ #       volumes:
+  #          - "./MKMBot/src:/myapp"
+        command: php mtg-bot.php
