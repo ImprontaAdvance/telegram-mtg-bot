@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+    mkmprovider:
+        build: MKMProvider
+        volumes:
+            - "./MKMProvider/src:/myapp"
+        ports:
+            - 8081:8081
+        command: php -S 0.0.0.0:8081
