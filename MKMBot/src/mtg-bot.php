@@ -22,7 +22,7 @@ for ($i = 0; $i < $telegram-> UpdateCount(); $i++) {
 	$text = $telegram->Text();
 	$chat_id = $telegram->ChatID();
 	$benvenuto = "Ciao ".$telegram->FirstName()." ".@$telegram->LastName()."\n";
-	$benvenuto .= "Digita \"/price\" seguito dalle carte che stai cercando separandole con una virgola se sono più di una.";
+	$benvenuto .= "Digita \"/price\" seguito dalla carta che stai cercando.";
 
 	
 	# Se proprio siete curiosi
@@ -52,7 +52,12 @@ for ($i = 0; $i < $telegram-> UpdateCount(); $i++) {
 			$content = array('chat_id' => $chat_id, 'text' => $reply);
             $telegram->sendMessage($content);
 		break;
-
+	
+	case ( preg_match("/fanculo/",$text) ? true:false ):
+			$reply = "Lo dici a tuo padre...";
+			$content = array('chat_id' => $chat_id, 'text' => $reply);
+            $telegram->sendMessage($content);
+		break;
 	}
 }
 sleep(0.5);
