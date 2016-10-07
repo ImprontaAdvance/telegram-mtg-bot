@@ -35,8 +35,10 @@ button[type=submit]:hover {
   display: block;
 }
 .row {
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   padding: 2rem;
   border: solid 1px #ccc;
   border-bottom: 0;

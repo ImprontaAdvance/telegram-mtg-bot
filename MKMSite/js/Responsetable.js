@@ -30,13 +30,12 @@ export default class Responsetable extends Component {
                 </div>
                 <div className="row">
                     <div className="grid-cell">
-                        {this.props.cards[0].nome}
+                        {this.props.cards[0].name}
                     </div>
                     <div className="grid-cell">
-                        {this.props.cards[0].prezzoMinimo}
+                        {this.props.cards[0].price}
                     </div>
                     <div className="grid-cell">
-                        {this.props.cards[0].prezzoMedio}
                     </div>
                 </div>
             </div>
