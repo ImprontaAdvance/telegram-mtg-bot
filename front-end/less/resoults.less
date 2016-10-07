@@ -1,0 +1,27 @@
+.row {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    border: solid 1px #ccc;
+    border-bottom: 0;
+
+    &:first-of-type {
+        margin-top: 2rem;
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+    }
+
+    &:last-of-type {
+        border-bottom: solid 1px #ccc;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+}
+
+.loading {
+    display: none;
+
+    &.visible {
+        display: block;
+    }
+}
