@@ -1,0 +1,13 @@
+{
+    "name": "improntaadvance/mkmprovider",
+    "authors": [
+        {
+            "name": "Massimo Ruggirello",
+            "email": "massimoruggirello@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"MKMProvider\\": "src/"}
+    },
+    "require": {}
+}
