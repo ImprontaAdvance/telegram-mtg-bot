@@ -2,7 +2,7 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     var globalConfig = {
-        src: 'front-end',
+        src: '.',
         dest: 'view'
     };
 

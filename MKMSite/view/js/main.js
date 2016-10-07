@@ -46,26 +46,22 @@ var App = function (_Component) {
     _createClass(App, [{
         key: 'onSearch',
         value: function onSearch(string) {
+            var _this2 = this;
+
             this.setState({ cards: [{
                     nome: 'carta1',
                     prezzoMinimo: '€13.00',
                     prezzoMedio: '€ 18.00'
                 }] });
-            // fetch('http://jsfiddle.net/echo/json/', {
-            //     method: 'GET',
-            //     // body: JSON.stringify({
-            //     //     string: string
-            //     // })
-            // })
-            // .then(response => {
-            //     console.log('hello');
-            //     //return { cards: [0, 1, 2]};
-            //     //response.json()
-            // })
-            // .catch((e) => console.log(e));
-            // .then(data => {
-            //     this.setState({cards: data.cards});
-            // });
+            fetch('http://localhost:3001/?q=' + string).then(function (response) {
+                console.log('hello');
+                //return { cards: [0, 1, 2]};
+                return response.json();
+            }).catch(function (e) {
+                return console.log(e);
+            }).then(function (data) {
+                _this2.setState({ cards: data });
+            });
             //
             // return;
             //
@@ -83,7 +79,7 @@ var App = function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             return _react2.default.createElement(
                 'div',
@@ -100,7 +96,7 @@ var App = function (_Component) {
                 ),
                 _react2.default.createElement(_Requestform2.default, {
                     onSearch: function onSearch(stringa) {
-                        return _this2.onSearch(stringa);
+                        return _this3.onSearch(stringa);
                     },
                     lastSearch: this.state.lastSearch }),
                 _react2.default.createElement(_Responsetable2.default, {
@@ -287,18 +283,14 @@ var Responsetable = function (_Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "grid-cell" },
-                        this.props.cards[0].nome
+                        this.props.cards[0].name
                     ),
                     _react2.default.createElement(
                         "div",
                         { className: "grid-cell" },
-                        this.props.cards[0].prezzoMinimo
+                        this.props.cards[0].price
                     ),
-                    _react2.default.createElement(
-                        "div",
-                        { className: "grid-cell" },
-                        this.props.cards[0].prezzoMedio
-                    )
+                    _react2.default.createElement("div", { className: "grid-cell" })
                 )
             );
         }

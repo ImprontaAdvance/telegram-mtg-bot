@@ -22,21 +22,16 @@ export default class App extends Component {
                 prezzoMedio: '€ 18.00'
             }
         ]});
-        // fetch('http://jsfiddle.net/echo/json/', {
-        //     method: 'GET',
-        //     // body: JSON.stringify({
-        //     //     string: string
-        //     // })
-        // })
-        // .then(response => {
-        //     console.log('hello');
-        //     //return { cards: [0, 1, 2]};
-        //     //response.json()
-        // })
-        // .catch((e) => console.log(e));
-        // .then(data => {
-        //     this.setState({cards: data.cards});
-        // });
+        fetch('http://localhost:3001/?q=' + string)
+        .then(response => {
+            console.log('hello');
+            //return { cards: [0, 1, 2]};
+            return response.json();
+        })
+        .catch((e) => console.log(e))
+        .then(data => {
+            this.setState({cards: data});
+        });
         //
         // return;
         //
