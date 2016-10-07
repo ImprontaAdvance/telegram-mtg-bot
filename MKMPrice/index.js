@@ -7,10 +7,7 @@ app.get('/', function (req, res) {
   var splittedString = functions.splitString(queryString.q, ',');
 
   functions.getPriceFromMkm(splittedString[0], function(cardName, cardPrice){
-      res.send(
-          {Ricerca: cardName,
-          Risultato: cardPrice}
-      );
+      res.send(cardPrice);
   });
 });
 

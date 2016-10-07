@@ -13,11 +13,16 @@ services:
         build: MKMPrice
         volumes:
             - "./MKMPrice:/myapp"
+        links:
+            - mkmprovider:mkmprovider
         ports:
             - 3001:3001
         command: nodejs index.js
+
     mkmbot:
         build: MKMBot
- #       volumes:
-  #          - "./MKMBot/src:/myapp"
+        links:
+            - mkmprice:mkmprice
+        volumes:
+            - "./MKMBot/src:/myapp"
         command: php mtg-bot.php

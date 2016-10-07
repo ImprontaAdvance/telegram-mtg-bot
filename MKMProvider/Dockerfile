@@ -14,6 +14,8 @@ RUN composer --version
 RUN wget https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit
 RUN phpunit --version
 
-WORKDIR /myapp/
+RUN cd /myapp && composer install
+
+WORKDIR /myapp/src
 
 EXPOSE 8081

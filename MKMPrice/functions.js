@@ -6,14 +6,18 @@ function splitString(stringToSplit, separator) {
 
 function getPriceFromMkm(cardName, cb) {
 
-    http.get({
-        hostname: 'localhost',
-        port: 3002,
-        path: '/price?q=' + cardName,
-        agent: false
-    }, (res) => {
-        return cb(cardName, res.body);
-    })
+    http.get('http://mkmprovider:3002/price?name=' + cardName, (res) => {
+        var d = '';
+        res.on('data', function (chunk) {
+            d += chunk;
+        });
+
+        res.on('end', function () {
+            var o = JSON.parse(d);
+            cb(cardName, o);
+        });
+
+    });
 }
 
 module.exports = {
