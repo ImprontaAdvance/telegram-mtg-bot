@@ -15,8 +15,7 @@ services:
             - "./MKMPrice:/myapp"
         ports:
             - 3001:3001
-        command: nodejs app.js
-        
+        command: nodejs index.js
     mkmbot:
         build: MKMBot
  #       volumes:
