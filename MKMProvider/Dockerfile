@@ -4,12 +4,16 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     zlib1g-dev \
-    libxml2-dev
+    libxml2-dev \
+    wget
 RUN docker-php-ext-install zip xmlrpc
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer --version
 
-WORKDIR /myapp
+RUN wget https://phar.phpunit.de/phpunit.phar && chmod +x phpunit.phar && mv phpunit.phar /usr/local/bin/phpunit
+RUN phpunit --version
+
+WORKDIR /myapp/
 
 EXPOSE 8081
