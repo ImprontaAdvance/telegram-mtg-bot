@@ -1,0 +1,12 @@
+FROM php:7
+
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    zlib1g-dev \
+    libxml2-dev
+RUN docker-php-ext-install zip xmlrpc
+
+ADD src /myapp
+
+WORKDIR /myapp
