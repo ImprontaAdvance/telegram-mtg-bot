@@ -8,6 +8,11 @@ services:
         ports:
             - 3002:3002
         command: php -S 0.0.0.0:3002
+        environment:
+            MKM_APP_TOKEN: ${MKM_APP_TOKEN}
+            MKM_APP_SECRET: ${MKM_APP_SECRET}
+            MKM_ACCESS_TOKEN: ${MKM_ACCESS_TOKEN}
+            MKM_ACCESS_SECRET: ${MKM_ACCESS_SECRET}
 
     mkmprice:
         build: MKMPrice
@@ -26,3 +31,5 @@ services:
         volumes:
             - "./MKMBot/src:/myapp"
         command: php mtg-bot.php
+        environment:
+            TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}

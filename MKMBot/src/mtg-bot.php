@@ -3,7 +3,7 @@
 
 include('telegram.php');
 
-define('BOT_TOKEN', '285466898:AAF5Q-OlBSIgxMgwqWNJ3KmejE0Zsn9RAXs');
+define('BOT_TOKEN', getenv('TELEGRAM_BOT_TOKEN'));
 $telegram = new Telegram(BOT_TOKEN);
 $risposta = '[{"name": "Snapcaster", "price": 13.4}, {"name": "Snapcaster 2", "price": 2}]';
 $mkmprovideradd = 'mkmprice';

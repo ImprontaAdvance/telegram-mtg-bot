@@ -25,7 +25,7 @@ if(count($_GET) === 0 || !$_GET['name']) {
     exit();
 }
 
-$API = new MKMApi("wBSY3MMS12SoPdBX", "zkMru510ij98raVbEPI53iywwe4bGKHy", "57dLtLhduOPdXrv3rTcAk1SN9oVaJKsG", "eSh1OjIH2vhEv4NJbLfP2OefQSUbGh2L");
+$API = new MKMApi(getenv('MKM_APP_TOKEN'), getenv('MKM_APP_SECRET'), getenv('MKM_ACCESS_TOKEN'), getenv('MKM_ACCESS_SECRET'));
 $data = $API->getSignedRequest("GET", "https://www.mkmapi.eu/ws/v1.1/products/" . $_GET['name'] . "/1/1/false");
 
 if(!$data) {
