@@ -1,5 +1,6 @@
-var TelegramBot = require('node-telegram-bot-api');
-var commands = require('./commands.js');
+const TelegramBot = require('node-telegram-bot-api');
+const commands = require('./commands.js');
+const requests = require('./requests.js');
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -63,4 +64,24 @@ bot.onText(/.+\/(start|help|credits|price|last|low)/, function(msg, match) {
 
 bot.onText(/\/(?!credits|help|start|price|last|low).*$/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'I don\'t know this command. If you\'re lost, try /help.');
+});
+
+
+//inline queries
+bot.on('inline_query', function(query) {
+    requests.getMkmCardLink(query.query)
+    .then((res) => {
+        bot.answerInlineQuery(query.id, res.map(el => {
+            return {
+                type: 'article',
+                id: Math.random().toString(),
+                title: `${el.name}-${el.expansion}`,
+                input_message_content: {
+                    message_text: `<a href="${el.link}">${el.name}</a>`,
+                    parse_mode: 'HTML',
+                },
+                url: el.link,
+            };
+        }));
+    });
 });

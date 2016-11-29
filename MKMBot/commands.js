@@ -9,6 +9,7 @@ const COMMANDS = {
     last: '/last - retrieve the last 10 card names searched.',
     low: '/low - Same as /price, but retrieve the lowest price for card (condition EX+).',
     credits: '/credits - see who is behind the project.',
+    inline: 'You can also use in any chat @mkmpricebot followed by a card name to get the Mkm link page to the card.'
 };
 
 function start(message, matches) {

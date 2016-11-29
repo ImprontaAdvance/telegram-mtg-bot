@@ -27,6 +27,7 @@ function getCardFromMkm(cardName) {
             return {
                 names: res[i].name.map(el => el.productName),
                 expansion: expansion.setExpansionTag(card.expansion),
+                expansionMkm: card.expansion,
                 number: card.number,
                 rarity: card.rarity,
                 prices: {
