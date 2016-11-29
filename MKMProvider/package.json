@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/functional && mocha test/unit",
-    "postinstall": "curl -o /tmp/AllSets.zip http://mtgjson.com/json/AllSets.json.zip && unzip /tmp/AllSets.zip -d data/ && rm /tmp/AllSets.zip"
+    "postinstall": "curl -o /tmp/AllSets.zip http://mtgjson.com/json/AllSets.json.zip && unzip /tmp/AllSets.zip -d data/ && rm /tmp/AllSets.zip && node tools/makesets.js"
   },
   "author": "Mendicant Bias",
   "license": "ISC",
