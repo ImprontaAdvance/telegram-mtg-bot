@@ -7,29 +7,19 @@ services:
             - "./MKMProvider:/myapp"
         ports:
             - 3002:3002
-        command: php -S 0.0.0.0:3002
+        command: node index.js
         environment:
             MKM_APP_TOKEN: ${MKM_APP_TOKEN}
             MKM_APP_SECRET: ${MKM_APP_SECRET}
             MKM_ACCESS_TOKEN: ${MKM_ACCESS_TOKEN}
             MKM_ACCESS_SECRET: ${MKM_ACCESS_SECRET}
 
-    mkmprice:
-        build: MKMPrice
-        volumes:
-            - "./MKMPrice:/myapp"
-        links:
-            - mkmprovider:mkmprovider
-        ports:
-            - 3001:3001
-        command: nodejs index.js
-
     mkmbot:
         build: MKMBot
         links:
-            - mkmprice:mkmprice
+            - mkmprovider:mkmprovider
         volumes:
-            - "./MKMBot/src:/myapp"
-        command: php mtg-bot.php
+            - "./MKMBot:/myapp"
+        command: node index.js
         environment:
             TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
