@@ -3,10 +3,10 @@ const crypto = require('crypto');
 const OAUTH_VERSION = '1.0';
 const SIGNATURE_METHOD = 'HMAC-SHA1';
 
-const APP_TOKEN = process.env(MKM_APP_TOKEN );
-const APP_SECRET = process.env(MKM_APP_SECRET);
-const ACCESS_TOKEN = process.env(MKM_ACCESS_TOKEN);
-const ACCESS_SECRET = process.env(MKM_ACCESS_SECRET);
+const APP_TOKEN = process.env.MKM_APP_TOKEN;
+const APP_SECRET = process.env.MKM_APP_SECRET;
+const ACCESS_TOKEN = process.env.MKM_ACCESS_TOKEN;
+const ACCESS_SECRET = process.env.MKM_ACCESS_SECRET;
 
 var nonce = Math.random();
 var timestamp = Date.now();
