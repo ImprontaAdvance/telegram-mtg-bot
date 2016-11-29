@@ -1,0 +1,22 @@
+{
+  "name": "mkm-provider",
+  "version": "1.0.0",
+  "description": "the provider that talk to mkm ",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/functional && mocha test/unit",
+    "postinstall": "curl -o /tmp/AllSets.zip http://mtgjson.com/json/AllSets.json.zip && unzip /tmp/AllSets.zip -d data/ && rm /tmp/AllSets.zip"
+  },
+  "author": "Mendicant Bias",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0",
+    "request": "^2.79.0",
+    "xml2json": "^0.10.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "supertest": "^2.0.1"
+  }
+}
