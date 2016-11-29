@@ -1,0 +1,20 @@
+{
+  "name": "mkm-bot",
+  "version": "1.0.0",
+  "description": "telegram bot that talk with mkm-provider",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "author": "Mendicant Bias",
+  "license": "ISC",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.24.0",
+    "request": "^2.78.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6"
+  }
+}
