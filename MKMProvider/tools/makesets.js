@@ -6,4 +6,4 @@ Object.keys(magicSets).forEach(el => {
     expansions[magicSets[el].name] = el;
 });
 
-fs.writeFileSync('data/expansion.json', JSON.stringify(expansions));
+fs.writeFileSync(__dirname + '/../data/expansion.json', JSON.stringify(expansions));

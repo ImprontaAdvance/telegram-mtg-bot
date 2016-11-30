@@ -1,9 +1,9 @@
-const sets = require('../expansion.json');
+const sets = require('../data/expansion.json');
 
-function setExpansionTag(expansion) {
+function getExpansionCode(expansion) {
     return sets[expansion] || expansion;
 }
 
 module.exports = {
-    setExpansionTag,
+    getExpansionCode,
 };

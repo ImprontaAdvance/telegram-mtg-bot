@@ -43,7 +43,7 @@ function generateAuthHeader(method, url) {
         .map(el => `${el}="${authSignatures[el]}"`)
         .join(',');
 
-    var header = 'OAuth ' + authParams;
+    var header = `OAuth ${authParams}`;
 
     return header;
 }
