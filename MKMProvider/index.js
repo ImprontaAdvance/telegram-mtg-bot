@@ -1,7 +1,7 @@
 const express = require('express');
 const requests = require('./requests.js');
 
-var app = express();
+const app = express();
 
 app.get('/price', function(req, res) {
     if(!req.query.name) {

@@ -10,7 +10,7 @@ function getCardPrice(card, priceType) {
 
             if(res.statusCode === 404) {
                 return reject({
-                    message: 'Oops, I cannot found  the card. Are you sure name e/or syntax are correct?',
+                    message: 'Oops, I cannot found  the card. Are you sure name and/or syntax are correct?',
                 });
             }
 
@@ -34,7 +34,7 @@ function getMkmCardLink(card) {
 
             if(res.statusCode === 404) {
                 return reject({
-                    message: 'Oops, I cannot found  the card. Are you sure name e/or syntax are correct?',
+                    message: 'Oops, I cannot found  the card. Are you sure name and/or syntax are correct?',
                 });
             }
 
