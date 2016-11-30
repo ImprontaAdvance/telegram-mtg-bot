@@ -23,7 +23,10 @@ function getCardFromMkm(cardName) {
         });
     })
     .then(res => {
-        return res.map((card, i, res) => {
+        return res.filter(function(card) {
+            return card.rarity !== 'Special' && card.category.categoryName === 'Magic Single';
+        })
+        .map((card, i, res) => {
             return {
                 names: res[i].name.map(el => el.productName),
                 expansion: expansion.getExpansionCode(card.expansion),
