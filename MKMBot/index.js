@@ -62,7 +62,7 @@ bot.onText(/.+\/(start|help|credits|price|last|low)/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'Don\'t type text before a command, please.');
 });
 
-bot.onText(/\/(?!credits|help|start|price|last|low).*$/, function(msg, match) {
+bot.onText(/^\/(?!credits|help|start|price|last|low).*$/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'I don\'t know this command. If you\'re lost, try /help.');
 });
 
