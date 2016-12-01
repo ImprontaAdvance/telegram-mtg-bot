@@ -23,6 +23,8 @@ function getCardFromMkm(cardName) {
         });
     })
     .then(res => {
+        if(!Array.isArray(res))
+            res = [res];
         return res.filter(card => card.rarity !== 'Special' && card.category.categoryName === 'Magic Single')
         .map((card, i, res) => {
             return {
