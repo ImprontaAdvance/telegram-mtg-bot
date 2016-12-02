@@ -17,10 +17,10 @@ function getCardPrice(card, priceType) {
             try {
                 var prices = JSON.parse(body).splice(0, 8).map(function(el) {
                     return `\n${el.names[0]} - ${el.expansion} - ${el.prices[priceType]} €`;
-                }).join('');
+                });
                 resolve({prices});
             } catch (e) {
-                rej(e);
+                reject(e);
             }
         });
     });
@@ -54,7 +54,36 @@ function getMkmCardLink(card) {
     });
 }
 
+function getCardGroupName(card, priceType) {
+    return new Promise(function(resolve, reject) {
+        request(`${ENDPOINT}/price?name=${card.trim()}`, function(err, res, body) {
+            if(err)
+                return reject(err);
+
+            if(res.statusCode === 404) {
+                return reject({
+                    message: 'Oops, I cannot found  the card. Are you sure name and/or syntax are correct?',
+                });
+            }
+
+            try {
+                var names = {};
+                JSON.parse(body).forEach(function(el) {
+                    if(!names.hasOwnProperty(el.names[0]))
+                        names[el.names[0]] = [];
+
+                    names[el.names[0]].push(`\n${el.names[0]} - ${el.expansion} - ${el.prices[priceType]} €`);
+                });
+                resolve(names);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    });
+}
+
 module.exports = {
     getCardPrice,
     getMkmCardLink,
+    getCardGroupName,
 };
