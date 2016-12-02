@@ -4,11 +4,15 @@ const requests = require('./requests.js');
 
 const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 
-var bot = new TelegramBot(TOKEN, { polling: true });
+var bot = new TelegramBot(TOKEN, {polling: true });
 
 bot.onText(/^\/price (.+)$/, function(msg, match) {
-    commands.price(msg, match)
-        .then(res => bot.sendMessage(msg.chat.id, res.text, res.options))
+    commands.createCardButtons(msg, match)
+        .then(res => {
+            res.forEach(el => {
+                bot.sendMessage(msg.chat.id, el.text, el.options);
+            });
+        })
         .catch(e => {
             console.error(e);
 
@@ -83,5 +87,19 @@ bot.on('inline_query', function(query) {
                 url: el.link,
             };
         }));
+    });
+});
+
+
+// button callback query
+bot.on('callback_query', function(query) {
+    bot.answerCallbackQuery(query.id)
+    .then(() => {
+        commands.price(query.message, query.data)
+        .then((res) => {
+            bot.sendMessage(query.message.chat.id, res.text);
+        })
+        .catch(e => console.log(e));
+
     });
 });

@@ -1,4 +1,5 @@
 const requests = require('./requests.js');
+const helper = require('./helpers/inlineButtons.js');
 
 const HISTORY_SIZE = 10;
 
@@ -28,49 +29,34 @@ function start(message, matches) {
     });
 }
 
-function price(message, matches) {
-    var cards = matches[1].split(',');
+function price(message, card) {
 
-    cards.forEach(function (el) {
-        lastCommands.unshift(el);
-        lastCommands.splice(HISTORY_SIZE, 1);
+    lastCommands.unshift(card);
+    lastCommands.splice(HISTORY_SIZE, 1);
+
+    return requests.getCardPrice(card, 'TREND')
+    .then(response => {
+        return {
+            text: response.prices
+            .join(''),
+        };
     });
-
-    var promises = cards.map(function(el) {
-        return requests.getCardPrice(el, 'TREND');
-    });
-
-    return Promise.all(promises)
-        .then(responses => {
-            return {
-                text: responses
-                        .map(response => response.prices)
-                        .join('\n')
-            };
-        });
 }
 
-function low(message, matches) {
-    var cards = matches[1].split(',');
+function low(message, card) {
 
-    cards.forEach(function (el) {
-        lastCommands.unshift(el);
-        lastCommands.splice(HISTORY_SIZE, 1);
+    lastCommands.unshift(card);
+    lastCommands.splice(HISTORY_SIZE, 1);
+
+    return requests.getCardPrice(card, 'LOWEX')
+    .then(response => {
+        return {
+            text: response.prices
+            .join(''),
+        };
     });
-
-    var promises = cards.map(function(el) {
-        return requests.getCardPrice(el, 'LOWEX');
-    });
-
-    return Promise.all(promises)
-        .then(responses => {
-            return {
-                text: responses
-                        .map(response => response.prices)
-                        .join('\n')
-            };
-        });
 }
+
 
 function help(message, matches) {
     return new Promise(function(res, rej) {
@@ -86,7 +72,7 @@ function help(message, matches) {
 
 function last(message, mathces) {
     return new Promise(function(res, rej) {
-        var resp = lastCommands.length === 0 ? 'Seems you have no researches yet. Try /price followed by a card name to start a research.' : 'The last 10 card searched:\n' + lastCommands.join('\n');
+        var resp = lastCommands[message.from.id] === undefined ? 'Seems you have no researches yet. Try /price followed by a card name to start a research.' : `The last 10 card searched:\n${lastCommands[message.from.id].join('\n')}`;
         res(resp);
     }).then(last => {
         return {
@@ -95,10 +81,31 @@ function last(message, mathces) {
     });
 }
 
+function createCardButtons(message, matches) {
+    var cards = matches[1].split(',');
+
+    var promises = cards.map(function(el) {
+        return requests.getCardGroupName(el, 'TREND');
+    });
+
+    return Promise.all(promises)
+        .then(responses => {
+            return responses.map((el) => {
+                return {
+                    text: 'Choose the card',
+                    options: {
+                        reply_markup: helper.createReplyMarkup(el),
+                    },
+                };
+            });
+        });
+}
+
 module.exports = {
     price,
     help,
     start,
     last,
     low,
+    createCardButtons,
 };
