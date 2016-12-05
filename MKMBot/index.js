@@ -7,7 +7,7 @@ const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 var bot = new TelegramBot(TOKEN, {polling: true });
 
 bot.onText(/^\/price (.+)$/, function(msg, match) {
-    commands.createCardButtons(msg, match)
+    commands.manageCards(msg, match)
         .then(res => {
             res.forEach(el => {
                 bot.sendMessage(msg.chat.id, el.text, el.options);
@@ -84,7 +84,7 @@ bot.on('inline_query', function(query) {
 bot.on('callback_query', function(query) {
     bot.answerCallbackQuery(query.id)
     .then(() => {
-        commands.price(query.message, query.data)
+        commands.manageSelectedCard(query.message, query.data)
         .then((res) => {
             bot.sendMessage(query.message.chat.id, res.text);
         })

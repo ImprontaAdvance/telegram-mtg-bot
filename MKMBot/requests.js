@@ -2,7 +2,7 @@ const request = require('request');
 
 const ENDPOINT = 'http://mkmprovider:3002';
 
-function getCardPrice(card) {
+function getCards(card) {
     return new Promise(function(resolve, reject) {
         request(`${ENDPOINT}/price?name=${card.trim()}`, function(err, res, body) {
             if(err)
@@ -15,10 +15,8 @@ function getCardPrice(card) {
             }
 
             try {
-                var prices = JSON.parse(body).splice(0, 8).map(function(el) {
-                    return `\n${el.names[0]} - ${el.expansion} -  ${el.prices['LOWEX']}  |  ${el.prices['TREND']}  €`;
-                });
-                resolve({prices});
+                var cards = JSON.parse(body);
+                resolve(cards);
             } catch (e) {
                 reject(e);
             }
@@ -54,38 +52,7 @@ function getMkmCardLink(card) {
     });
 }
 
-function getCardGroupName(card, priceType) {
-    return new Promise(function(resolve, reject) {
-        request(`${ENDPOINT}/price?name=${card.trim()}`, function(err, res, body) {
-            if(err)
-                return reject(err);
-
-            if(res.statusCode === 404) {
-                return reject({
-                    message: 'Oops, I cannot found  the card. Are you sure name and/or syntax are correct?',
-                });
-            }
-
-            try {
-                var names = {};
-                JSON.parse(body).forEach(function(el) {
-                    var singleName = el.names[0].replace(/\s\(Version\s\d+\)/, '');
-
-                    if(!names.hasOwnProperty(singleName))
-                        names[singleName] = [];
-
-                    names[singleName].push(`\n${singleName} - ${el.expansion} - ${el.prices[priceType]} €`);
-                });
-                resolve(names);
-            } catch (e) {
-                reject(e);
-            }
-        });
-    });
-}
-
 module.exports = {
-    getCardPrice,
+    getCards,
     getMkmCardLink,
-    getCardGroupName,
 };

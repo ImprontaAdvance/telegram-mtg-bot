@@ -1,7 +1,7 @@
 
-function createReplyMarkup(prices) {
+function createReplyMarkup(names) {
     var inline_keyboard = [];
-    Object.keys(prices).forEach(el => inline_keyboard.push([{
+    names.forEach(el => inline_keyboard.push([{
         text: el,
         callback_data: el,
     }]));
@@ -10,6 +10,19 @@ function createReplyMarkup(prices) {
     };
 }
 
+function getCardNames(cards) {
+    var names = [];
+    cards.forEach(function(el) {
+        var singleName = el.names[0].replace(/\s\(Version\s\d+\)/, '');
+
+        if(names.indexOf(singleName) === -1)
+            names.push(singleName);
+    });
+    return names;
+}
+
+
 module.exports = {
     createReplyMarkup,
+    getCardNames,
 };
