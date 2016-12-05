@@ -6,9 +6,8 @@ const HISTORY_SIZE = 10;
 var lastCommands = [];
 
 const COMMANDS = {
-    price: '/price - use this command followed by a card name to retrieve the prices for the first 8 cards matching the name. You can search for multiple cards separating names with commas. The price given is the trend price.',
+    price: '/price - use this command followed by a card name to retrieve the prices for the cards matching the name. You can search for multiple cards separating names with commas. The prices shown are the lowest price for card (condition EX+) and the trend price.',
     last: '/last - retrieve the last 10 card names searched.',
-    low: '/low - Same as /price, but retrieve the lowest price for card (condition EX+).',
     credits: '/credits - see who is behind the project.',
     inline: 'You can also use in any chat @mkmpricebot followed by a card name to get the Mkm link page to the card.'
 };
@@ -34,7 +33,7 @@ function price(message, card) {
     lastCommands.unshift(card);
     lastCommands.splice(HISTORY_SIZE, 1);
 
-    return requests.getCardPrice(card, 'TREND')
+    return requests.getCardPrice(card)
     .then(response => {
         return {
             text: response.prices
@@ -42,21 +41,6 @@ function price(message, card) {
         };
     });
 }
-
-function low(message, card) {
-
-    lastCommands.unshift(card);
-    lastCommands.splice(HISTORY_SIZE, 1);
-
-    return requests.getCardPrice(card, 'LOWEX')
-    .then(response => {
-        return {
-            text: response.prices
-            .join(''),
-        };
-    });
-}
-
 
 function help(message, matches) {
     return new Promise(function(res, rej) {
@@ -106,6 +90,5 @@ module.exports = {
     help,
     start,
     last,
-    low,
     createCardButtons,
 };

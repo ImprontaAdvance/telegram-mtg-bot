@@ -8,7 +8,7 @@ The project aim is to make a Telegram BOT which can easily retrieve [_Magic: The
 ## Commands
 
 #### /price _card_[, _card_]*
-Bot return the prices for the first 8 cards that match _card_ parameter. It can search multiple cards if comma-separated. The price retrieved is the trend price.
+Bot return the prices for the cards that match _card_ parameter. It can search multiple cards if comma-separated.  The prices shown are the lowest price for card (condition EX+) and the trend price.
 
 Example:
 ```
@@ -16,14 +16,11 @@ Example:
 /price snapcaster, izzet staticaster
 
 # BOT:
-Snapcaster Mage - INN - 35.50 €
-Snapcaster Mage - DCI - 78.50 €
+Snapcaster Mage - INN - 35.50 | 39.72 €
+Snapcaster Mage - DCI - 69.99 | 78.50 €
 
-Izzet Staticaster - RTR - 0.02 €
+Izzet Staticaster - RTR - 0.02 | 0.20 €
 ```
-
-#### /low _card_[, _card_]*
-Same as `/price`, but retrieve the lowest price for _card_ (condition EX+);
 
 #### /last
 Bot return the last 10 _card_ searched.

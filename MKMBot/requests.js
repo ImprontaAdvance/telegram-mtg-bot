@@ -2,7 +2,7 @@ const request = require('request');
 
 const ENDPOINT = 'http://mkmprovider:3002';
 
-function getCardPrice(card, priceType) {
+function getCardPrice(card) {
     return new Promise(function(resolve, reject) {
         request(`${ENDPOINT}/price?name=${card.trim()}`, function(err, res, body) {
             if(err)
@@ -16,7 +16,7 @@ function getCardPrice(card, priceType) {
 
             try {
                 var prices = JSON.parse(body).splice(0, 8).map(function(el) {
-                    return `\n${el.names[0]} - ${el.expansion} - ${el.prices[priceType]} €`;
+                    return `\n${el.names[0]} - ${el.expansion} -  ${el.prices['LOWEX']}  |  ${el.prices['TREND']}  €`;
                 });
                 resolve({prices});
             } catch (e) {
