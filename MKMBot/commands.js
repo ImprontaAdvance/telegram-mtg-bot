@@ -65,24 +65,53 @@ function last(message, mathces) {
     });
 }
 
-function createCardButtons(message, matches) {
+function manageCards(message, matches) {
     var cards = matches[1].split(',');
 
     var promises = cards.map(function(el) {
-        return requests.getCardGroupName(el, 'TREND');
+        return requests.getCards(el);
     });
 
     return Promise.all(promises)
         .then(responses => {
-            return responses.map((el) => {
+            return responses.map(el => {
+                var names = helper.getCardNames(el);
+                if(names.length === 1) {
+                    return {
+                        text: getCardPrices(el)
+                        .join(''),
+                    };
+                }
+
                 return {
-                    text: 'Choose the card',
+                    text: 'Choose the card:',
                     options: {
-                        reply_markup: helper.createReplyMarkup(el),
+                        reply_markup: helper.createReplyMarkup(names),
                     },
                 };
             });
         });
+}
+
+function manageSelectedCard(message, card) {
+    return requests.getCards(card)
+
+        .then(res => {
+            var results = res.filter(el => el.names[0] === card);
+            return {
+                text: getCardPrices(results)
+                    .join(''),
+            };
+
+        });
+}
+
+function getCardPrices(cards) {
+    var prices = cards.map(el => {
+        return `\n${el.names[0]} - ${el.expansion} -  ${el.prices.LOWEX}  |  ${el.prices.TREND}  €`;
+    });
+
+    return prices;
 }
 
 module.exports = {
@@ -90,5 +119,7 @@ module.exports = {
     help,
     start,
     last,
-    createCardButtons,
+    manageCards,
+    manageSelectedCard,
+    getCardPrices,
 };
