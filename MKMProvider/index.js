@@ -10,6 +10,9 @@ app.get('/price', function(req, res) {
 
     requests.getCardFromMkm(req.query.name)
     .then((cards) => {
+        if(cards.length === 0)
+            res.status(404).send();
+
         res.status(200).send(cards);
     })
     .catch((e) => {
