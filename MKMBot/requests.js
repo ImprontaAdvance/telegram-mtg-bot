@@ -69,10 +69,12 @@ function getCardGroupName(card, priceType) {
             try {
                 var names = {};
                 JSON.parse(body).forEach(function(el) {
-                    if(!names.hasOwnProperty(el.names[0]))
-                        names[el.names[0]] = [];
+                    var singleName = el.names[0].replace(/\s\(Version\s\d+\)/, '');
 
-                    names[el.names[0]].push(`\n${el.names[0]} - ${el.expansion} - ${el.prices[priceType]} €`);
+                    if(!names.hasOwnProperty(singleName))
+                        names[singleName] = [];
+
+                    names[singleName].push(`\n${singleName} - ${el.expansion} - ${el.prices[priceType]} €`);
                 });
                 resolve(names);
             } catch (e) {
