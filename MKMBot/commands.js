@@ -1,13 +1,8 @@
 const requests = require('./requests.js');
 const helper = require('./helpers/inlineButtons.js');
 
-const HISTORY_SIZE = 10;
-
-var lastCommands = [];
-
 const COMMANDS = {
     price: '/price - use this command followed by a card name to retrieve the prices for the cards matching the name. You can search for multiple cards separating names with commas. The prices shown are the lowest price for card (condition EX+) and the trend price.',
-    last: '/last - retrieve the last 10 card names searched.',
     credits: '/credits - see who is behind the project.',
     inline: 'You can also use in any chat @mkmpricebot followed by a card name to get the Mkm link page to the card.'
 };
@@ -29,10 +24,6 @@ function start(message, matches) {
 }
 
 function price(message, card) {
-
-    lastCommands.unshift(card);
-    lastCommands.splice(HISTORY_SIZE, 1);
-
     return requests.getCardPrice(card)
     .then(response => {
         return {
@@ -50,17 +41,6 @@ function help(message, matches) {
     }).then(help => {
         return {
             resp: help,
-        };
-    });
-}
-
-function last(message, mathces) {
-    return new Promise(function(res, rej) {
-        var resp = lastCommands[message.from.id] === undefined ? 'Seems you have no researches yet. Try /price followed by a card name to start a research.' : `The last 10 card searched:\n${lastCommands[message.from.id].join('\n')}`;
-        res(resp);
-    }).then(last => {
-        return {
-            resp: last,
         };
     });
 }
@@ -118,7 +98,6 @@ module.exports = {
     price,
     help,
     start,
-    last,
     manageCards,
     manageSelectedCard,
     getCardPrices,

@@ -34,12 +34,6 @@ bot.onText(/^\/help$/, function(msg, match) {
     });
 });
 
-bot.onText(/^\/last$/, function(msg, match) {
-    var last = commands.last(msg, match).then(last => {
-        bot.sendMessage(msg.chat.id, last.resp, last.options);
-    });
-});
-
 bot.onText(/^\/credits$/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'Fun project from <a href="http://improntaadv.com/">Impronta Advance</a> team.\nCheck on GitHub: https://github.com/ImprontaAdvance/telegram-mtg-bot/', {
         parse_mode: 'HTML',
@@ -51,11 +45,11 @@ bot.onText(/^\/price$/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'Please provide one or more card names. I can\'t read your mind. Yet.');
 });
 
-bot.onText(/.+\/(start|help|credits|price|last)/, function(msg, match) {
+bot.onText(/.+\/(start|help|credits|price)/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'Don\'t type text before a command, please.');
 });
 
-bot.onText(/^\/(?!credits|help|start|price|last).*$/, function(msg, match) {
+bot.onText(/^\/(?!credits|help|start|price).*$/, function(msg, match) {
     bot.sendMessage(msg.chat.id, 'I don\'t know this command. If you\'re lost, try /help.');
 });
 
